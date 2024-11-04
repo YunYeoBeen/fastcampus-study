@@ -38,7 +38,6 @@ dependencies {
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
     testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:2.0.2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
 }
 
 kotlin {
@@ -60,4 +59,3 @@ tasks.withType<Test> {
 tasks.named<Jar>("jar") {
     enabled = false
 }
-
