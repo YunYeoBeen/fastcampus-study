@@ -1,9 +1,11 @@
 name: fastcampus board
 env:
   AWS_REGION: ap-northeast-2
+# on:
+#   push:
+#     branches: [ main ]
 on:
-  push:
-    branches: [ main ]
+  workflow_dispatch: #
 
 jobs:
   deploy:  
@@ -44,6 +46,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ${{ env.AWS_REGION }}
         application_name: sfmi-borad-study
-        environment_name: Sfmi-borad-studyenv
+        environment_name: Sfmi-borad-study-env
         version_label: github-action-${{steps.current-time.outputs.formattedTime}}
         deployment_package: deploy/deploy.zip
