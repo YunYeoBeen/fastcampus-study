@@ -1,11 +1,13 @@
 name: fastcampus board
 env:
   AWS_REGION: ap-northeast-2
-# on:
-#   push:
-#     branches: [ main ]
 on:
-  workflow_dispatch: #
+  push:
+    branches: [ main ]
+
+# 수동 스타트
+# on:
+#   workflow_dispatch: #
 
 jobs:
   deploy:  
