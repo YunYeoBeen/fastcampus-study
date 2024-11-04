@@ -9,5 +9,4 @@ class FastcampusStudyApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
