@@ -16,14 +16,14 @@ class PostEntity(
 ) : BaseEntity(createdBy) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long ?= null
+    val id: Long ? = null
 
     var title: String = title
 
     var content: String = content
 
     fun update(postUpdateRequest: PostUpdateRequest) {
-        if(postUpdateRequest.updatedBy != this.createdBy) {
+        if (postUpdateRequest.updatedBy != this.createdBy) {
             throw BadRequestException("author not match")
         }
         this.title = postUpdateRequest.title

@@ -11,12 +11,12 @@ import java.time.LocalDateTime
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-abstract class BaseEntity(createdBy : String,) {
+abstract class BaseEntity(createdBy: String) {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     var regDtm: LocalDateTime? = null
 
-    val createdBy : String = createdBy
+    val createdBy: String = createdBy
 
     @LastModifiedDate
     @Column(nullable = false)

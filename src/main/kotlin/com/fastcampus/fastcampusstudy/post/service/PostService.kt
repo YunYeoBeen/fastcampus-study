@@ -25,7 +25,7 @@ class PostService(
     }
 
     @Transactional
-    fun deletePosts(id : Long)  {
+    fun deletePosts(id: Long) {
         val post = postRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException()
         postRepository.delete(post)
     }

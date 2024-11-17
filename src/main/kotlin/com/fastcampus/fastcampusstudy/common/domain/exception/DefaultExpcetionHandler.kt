@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class DefaultExpcetionHandler {
 
     @ExceptionHandler(BadRequestException::class)
-    fun customBadRequestException(e : Exception, httpServletRequest: HttpServletRequest) : ResponseEntity<ApiError> {
+    fun customBadRequestException(e: Exception, httpServletRequest: HttpServletRequest): ResponseEntity<ApiError> {
         return ResponseEntity(
             ApiError(
                 path = httpServletRequest.requestURI,
@@ -24,7 +24,7 @@ class DefaultExpcetionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException::class)
-    fun customResourceNotFoundException(e : Exception, httpServletRequest: HttpServletRequest) : ResponseEntity<ApiError> {
+    fun customResourceNotFoundException(e: Exception, httpServletRequest: HttpServletRequest): ResponseEntity<ApiError> {
         return ResponseEntity(
             ApiError(
                 path = httpServletRequest.requestURI,
