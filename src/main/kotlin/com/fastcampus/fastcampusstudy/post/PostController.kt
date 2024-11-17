@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 class PostController {
 
     @PostMapping("/posts")
-    fun savePosts(@RequestBody postCreateRequest: PostCreateRequest) : Int {
+    fun savePosts(@RequestBody postCreateRequest: PostCreateRequest): Int {
         return 1
     }
 }
