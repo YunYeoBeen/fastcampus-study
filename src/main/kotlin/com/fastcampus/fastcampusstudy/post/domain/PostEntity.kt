@@ -2,6 +2,8 @@ package com.fastcampus.fastcampusstudy.post.domain
 
 import com.fastcampus.fastcampusstudy.common.domain.BaseEntity
 import com.fastcampus.fastcampusstudy.common.domain.exception.BadRequestException
+import com.fastcampus.fastcampusstudy.post.dto.PostIdResponseDto
+import com.fastcampus.fastcampusstudy.post.dto.PostResponse
 import com.fastcampus.fastcampusstudy.post.dto.PostUpdateRequest
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -30,4 +32,10 @@ class PostEntity(
         this.content = postUpdateRequest.content
         super.update(postUpdateRequest.updatedBy)
     }
+
+    fun fromEntity(entity: PostEntity): PostResponse = PostResponse(
+        title = this.title,
+        content = this.content,
+        createdBy = entity.createdBy,
+    )
 }
