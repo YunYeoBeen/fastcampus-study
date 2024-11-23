@@ -4,5 +4,5 @@ import jakarta.validation.constraints.NotBlank
 
 data class PostIdResponseDto(
     @NotBlank
-    val postId : Long
+    val postId: Long,
 )

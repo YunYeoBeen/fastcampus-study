@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/posts")
 class PostController(
-    private val postService: PostService
+    private val postService: PostService,
 ) {
 
     @PostMapping("/users")
-    fun savePost(@Valid @RequestBody postCreateRequest: PostCreateRequest): ResponseEntity<PostResponse> {
+    fun savePost(
+        @Valid @RequestBody
+        postCreateRequest: PostCreateRequest,
+    ): ResponseEntity<PostResponse> {
         val post = postService.findPost(postService.savePosts(postCreateRequest)).let {
             it.fromEntity(it)
         }
@@ -29,7 +32,11 @@ class PostController(
     }
 
     @PutMapping("/users/{postId}")
-    fun updatePost(@Valid @RequestBody postUpdateRequest: PostUpdateRequest, @PathVariable("postId") postId : Long): ResponseEntity<PostResponse> {
+    fun updatePost(
+        @Valid @RequestBody
+        postUpdateRequest: PostUpdateRequest,
+        @PathVariable("postId") postId: Long,
+    ): ResponseEntity<PostResponse> {
         val post = postService.findPost(postService.updatePost(postUpdateRequest, postId)).let {
             it.fromEntity(it)
         }
@@ -37,7 +44,7 @@ class PostController(
     }
 
     @PostMapping("/users/{postId}")
-    fun deletePost(@PathVariable("postId") postId: Long, createdBy : String): ResponseEntity<PostIdResponseDto> {
+    fun deletePost(@PathVariable("postId") postId: Long, createdBy: String): ResponseEntity<PostIdResponseDto> {
         postService.deletePost(postId, createdBy)
         return ResponseEntity.ok().body(PostIdResponseDto(postId = postId))
     }
