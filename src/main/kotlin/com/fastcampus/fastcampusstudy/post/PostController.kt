@@ -7,6 +7,8 @@ import com.fastcampus.fastcampusstudy.post.dto.PostUpdateRequest
 import com.fastcampus.fastcampusstudy.post.service.PostService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -19,6 +21,11 @@ import org.springframework.web.bind.annotation.RestController
 class PostController(
     private val postService: PostService,
 ) {
+
+    @GetMapping("/{postId}")
+    fun getPost(@PathVariable postId: Long): ResponseEntity<PostResponse> {
+        return ResponseEntity.ok().body(postService.findPost(postId).let { it.fromEntity(it) })
+    }
 
     @PostMapping("/users")
     fun savePost(
@@ -43,7 +50,7 @@ class PostController(
         return ResponseEntity.ok().body(post)
     }
 
-    @PostMapping("/users/{postId}")
+    @DeleteMapping("/users/{postId}")
     fun deletePost(@PathVariable("postId") postId: Long, createdBy: String): ResponseEntity<PostIdResponseDto> {
         postService.deletePost(postId, createdBy)
         return ResponseEntity.ok().body(PostIdResponseDto(postId = postId))
