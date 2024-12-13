@@ -1,4 +1,4 @@
-package com.fastcampus.fastcampusstudy.common.domain.dto
+package com.fastcampus.fastcampusstudy.common.dto
 
 import org.springframework.http.HttpStatus
 

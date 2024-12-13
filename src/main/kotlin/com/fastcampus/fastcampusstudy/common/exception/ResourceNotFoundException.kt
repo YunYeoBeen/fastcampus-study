@@ -1,4 +1,4 @@
-package com.fastcampus.fastcampusstudy.common.domain.exception
+package com.fastcampus.fastcampusstudy.common.exception
 
 import org.springframework.http.HttpStatus
 

@@ -1,7 +1,7 @@
 package com.fastcampus.fastcampusstudy.post.service
 
-import com.fastcampus.fastcampusstudy.common.domain.exception.BadRequestException
-import com.fastcampus.fastcampusstudy.common.domain.exception.ResourceNotFoundException
+import com.fastcampus.fastcampusstudy.common.exception.BadRequestException
+import com.fastcampus.fastcampusstudy.common.exception.ResourceNotFoundException
 import com.fastcampus.fastcampusstudy.post.domain.PostEntity
 import com.fastcampus.fastcampusstudy.post.dto.PostCreateRequest
 import com.fastcampus.fastcampusstudy.post.dto.PostUpdateRequest
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class PostService(
-    private val postRepository: PostRepository,
+        private val postRepository: PostRepository,
 ) {
     // TODO interceptor에서 로그인 체크하고 오자.
 
@@ -31,7 +31,9 @@ class PostService(
 
     @Transactional
     fun updatePost(postUpdateRequest: PostUpdateRequest, id: Long): Long {
-        postRepository.findByIdOrNull(id)?.update(postUpdateRequest) ?: throw ResourceNotFoundException()
+        postRepository.findByIdOrNull(id)?.let {
+            it.update(it, postUpdateRequest)
+        } ?: BadRequestException("업데이트를 실패했습니다.")
         return id
     }
 

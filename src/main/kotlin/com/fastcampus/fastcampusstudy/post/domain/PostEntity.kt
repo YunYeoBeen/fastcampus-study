@@ -1,7 +1,7 @@
 package com.fastcampus.fastcampusstudy.post.domain
 
 import com.fastcampus.fastcampusstudy.common.domain.BaseEntity
-import com.fastcampus.fastcampusstudy.common.domain.exception.BadRequestException
+import com.fastcampus.fastcampusstudy.common.exception.BadRequestException
 import com.fastcampus.fastcampusstudy.post.dto.PostResponse
 import com.fastcampus.fastcampusstudy.post.dto.PostUpdateRequest
 import jakarta.persistence.Entity
@@ -11,30 +11,30 @@ import jakarta.persistence.Id
 
 @Entity
 class PostEntity(
-    title: String,
-    content: String,
-    createdBy: String,
-) : BaseEntity(createdBy) {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long ? = null
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long? = null,
 
-    var title: String = title
+        var title: String,
 
-    var content: String = content
+        var content: String,
 
-    fun update(postUpdateRequest: PostUpdateRequest) {
-        if (postUpdateRequest.updatedBy != this.createdBy) {
-            throw BadRequestException("author not match")
+        val createdBy: String,
+
+        var updateBy: String? = null
+) : BaseEntity() {
+        fun update(postEntity: PostEntity, postUpdateRequest: PostUpdateRequest) {
+            if (postUpdateRequest.updatedBy != this.createdBy) {
+                throw BadRequestException("author not match")
+            }
+            postEntity.title = postUpdateRequest.title
+            postEntity.content = postUpdateRequest.content
+            postEntity.updateBy = postUpdateRequest.updatedBy
         }
-        this.title = postUpdateRequest.title
-        this.content = postUpdateRequest.content
-        super.update(postUpdateRequest.updatedBy)
-    }
 
-    fun fromEntity(entity: PostEntity): PostResponse = PostResponse(
-        title = this.title,
-        content = this.content,
-        createdBy = entity.createdBy
-    )
+        fun fromEntity(entity: PostEntity): PostResponse = PostResponse(
+                title = entity.title,
+                content = entity.content,
+                createdBy = entity.createdBy
+        )
 }

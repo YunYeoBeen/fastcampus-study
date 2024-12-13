@@ -1,6 +1,6 @@
-package com.fastcampus.fastcampusstudy.common.domain.exception
+package com.fastcampus.fastcampusstudy.common.exception
 
-import com.fastcampus.fastcampusstudy.common.domain.dto.ApiError
+import com.fastcampus.fastcampusstudy.common.dto.ApiError
 import jakarta.servlet.http.HttpServletRequest
 import org.apache.coyote.BadRequestException
 import org.springframework.http.HttpStatus
