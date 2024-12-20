@@ -1,18 +1,34 @@
 package com.fastcampus.fastcampusstudy.user.domain
 
+import com.fastcampus.fastcampusstudy.common.Enum.Social
 import com.fastcampus.fastcampusstudy.common.domain.BaseEntity
-import jakarta.persistence.*
+import com.fastcampus.fastcampusstudy.user.dto.KakaoUserInfoDto
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 
 @Entity
 class User(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
 
-        @Column(nullable = false, unique = true)
-        val kakaoId: String,
+    var kakaoId: Long,
 
-        val email: String? = null,
-        val nickname: String? = null
+    var email: String? = null,
+    var name: String? = null,
+    var type: Social
 ) : BaseEntity()
-
+{
+    companion object {
+        fun toEntity(kakaoUserInfoDto: KakaoUserInfoDto): User{
+            return User(
+                    kakaoId = kakaoUserInfoDto.id,
+                    email = kakaoUserInfoDto.kakaoAccount.email,
+                    name = kakaoUserInfoDto.kakaoAccount.name,
+                    type = Social.KAKAO
+            )
+        }
+    }
+}

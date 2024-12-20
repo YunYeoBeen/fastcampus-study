@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class PostServiceTest(
     private val postService: PostService,
-    private val postRepository: PostRepository,
+    private val postRepository: PostRepository
 ) : BehaviorSpec(
     {
 
@@ -40,7 +40,7 @@ class PostServiceTest(
         given("게시글 수정 시") {
             val updatedPost = PostUpdateRequest(title = "수정본 안녕", content = "다 나오지마", createdBy = "y0824.yun", updatedBy = "y0824.yun")
             val savedPost = postRepository.save(PostEntity(title = "안녕", content = "다 나와", createdBy = "y0824.yun"))
-            val wrongRequest = PostUpdateRequest(title = "수정본 안녕", content = "다 나오지마",createdBy = "y0824.yun", updatedBy = "y0824")
+            val wrongRequest = PostUpdateRequest(title = "수정본 안녕", content = "다 나오지마", createdBy = "y0824.yun", updatedBy = "y0824")
             When("정상적으로 수정 시") {
                 val updateId = postService.updatePost(updatedPost, savedPost.id!!)
                 then("게시글이 정상적으로 됐다") {

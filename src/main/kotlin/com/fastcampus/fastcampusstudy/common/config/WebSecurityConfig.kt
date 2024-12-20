@@ -23,4 +23,3 @@ class WebSecurityConfig {
         .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) } // session을 사용하지 않으므로 statelsess
         .build()
 }
-
