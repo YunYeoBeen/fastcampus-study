@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class User(
+class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
@@ -19,15 +19,14 @@ class User(
     var email: String? = null,
     var name: String? = null,
     var type: Social
-) : BaseEntity()
-{
+) : BaseEntity() {
     companion object {
-        fun toEntity(kakaoUserInfoDto: KakaoUserInfoDto): User{
-            return User(
-                    kakaoId = kakaoUserInfoDto.id,
-                    email = kakaoUserInfoDto.kakaoAccount.email,
-                    name = kakaoUserInfoDto.kakaoAccount.name,
-                    type = Social.KAKAO
+        fun toEntity(kakaoUserInfoDto: KakaoUserInfoDto): Member {
+            return Member(
+                kakaoId = kakaoUserInfoDto.id,
+                email = kakaoUserInfoDto.kakaoAccount.email,
+                name = kakaoUserInfoDto.kakaoAccount.name,
+                type = Social.KAKAO
             )
         }
     }

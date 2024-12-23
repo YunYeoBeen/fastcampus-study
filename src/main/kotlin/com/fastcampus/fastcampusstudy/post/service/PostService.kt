@@ -2,7 +2,7 @@ package com.fastcampus.fastcampusstudy.post.service
 
 import com.fastcampus.fastcampusstudy.common.exception.BadRequestException
 import com.fastcampus.fastcampusstudy.common.exception.ResourceNotFoundException
-import com.fastcampus.fastcampusstudy.post.domain.PostEntity
+import com.fastcampus.fastcampusstudy.post.domain.Post
 import com.fastcampus.fastcampusstudy.post.dto.PostCreateRequest
 import com.fastcampus.fastcampusstudy.post.dto.PostUpdateRequest
 import com.fastcampus.fastcampusstudy.post.dto.toEntity
@@ -18,7 +18,7 @@ class PostService(
 ) {
     // TODO interceptor에서 로그인 체크하고 오자.
 
-    fun findPost(postId: Long): PostEntity {
+    fun findPost(postId: Long): Post {
         return postRepository.findByIdOrNull(postId) ?: throw ResourceNotFoundException("게시글을 찾을 없습니다.")
     }
 

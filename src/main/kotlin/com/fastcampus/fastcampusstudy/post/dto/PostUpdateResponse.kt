@@ -1,6 +1,6 @@
 package com.fastcampus.fastcampusstudy.post.dto
 
-import com.fastcampus.fastcampusstudy.post.domain.PostEntity
+import com.fastcampus.fastcampusstudy.post.domain.Post
 import java.time.LocalDateTime
 
 data class PostUpdateResponse(
@@ -11,10 +11,10 @@ data class PostUpdateResponse(
     val modDtm: LocalDateTime
 )
 
-fun PostUpdateResponse.fromPostEntity(postEntity: PostEntity) = PostUpdateResponse(
-    title = postEntity.title,
-    content = postEntity.content,
-    createdBy = postEntity.createdBy,
-    updatedBy = postEntity.updateBy!!,
-    modDtm = postEntity.modDtm!!
+fun PostUpdateResponse.fromPostEntity(post: Post) = PostUpdateResponse(
+    title = post.title,
+    content = post.content,
+    createdBy = post.createdBy,
+    updatedBy = post.updateBy!!,
+    modDtm = post.modDtm!!
 )

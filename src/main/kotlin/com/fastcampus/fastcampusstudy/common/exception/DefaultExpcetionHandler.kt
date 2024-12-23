@@ -34,4 +34,27 @@ class DefaultExpcetionHandler {
             HttpStatus.NOT_FOUND
         )
     }
+
+    @ExceptionHandler(KakaoException::class)
+    fun handleKakaoException(e: Exception, httpServletRequest: HttpServletRequest): ResponseEntity<ApiError> {
+        return when (e) {
+            is KakaoException.KakaoUnauthorizedException -> ResponseEntity(
+                ApiError(
+                    path = httpServletRequest.requestURI,
+                    message = e.message ?: "Not Authorized",
+                    status = HttpStatus.UNAUTHORIZED
+                ),
+                HttpStatus.UNAUTHORIZED
+            )
+
+            else -> ResponseEntity(
+                ApiError(
+                    path = httpServletRequest.requestURI,
+                    message = e.message ?: "Not Authorized",
+                    status = HttpStatus.INTERNAL_SERVER_ERROR
+                ),
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
+        }
+    }
 }

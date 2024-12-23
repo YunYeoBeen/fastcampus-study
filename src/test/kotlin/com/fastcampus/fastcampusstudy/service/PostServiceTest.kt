@@ -2,7 +2,7 @@ package com.fastcampus.fastcampusstudy.service
 
 import com.fastcampus.fastcampusstudy.common.exception.BadRequestException
 import com.fastcampus.fastcampusstudy.common.exception.ResourceNotFoundException
-import com.fastcampus.fastcampusstudy.post.domain.PostEntity
+import com.fastcampus.fastcampusstudy.post.domain.Post
 import com.fastcampus.fastcampusstudy.post.dto.PostCreateRequest
 import com.fastcampus.fastcampusstudy.post.dto.PostUpdateRequest
 import com.fastcampus.fastcampusstudy.post.repository.PostRepository
@@ -39,7 +39,7 @@ class PostServiceTest(
         }
         given("게시글 수정 시") {
             val updatedPost = PostUpdateRequest(title = "수정본 안녕", content = "다 나오지마", createdBy = "y0824.yun", updatedBy = "y0824.yun")
-            val savedPost = postRepository.save(PostEntity(title = "안녕", content = "다 나와", createdBy = "y0824.yun"))
+            val savedPost = postRepository.save(Post(title = "안녕", content = "다 나와", createdBy = "y0824.yun"))
             val wrongRequest = PostUpdateRequest(title = "수정본 안녕", content = "다 나오지마", createdBy = "y0824.yun", updatedBy = "y0824")
             When("정상적으로 수정 시") {
                 val updateId = postService.updatePost(updatedPost, savedPost.id!!)

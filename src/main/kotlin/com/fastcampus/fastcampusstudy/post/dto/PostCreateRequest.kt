@@ -1,6 +1,6 @@
 package com.fastcampus.fastcampusstudy.post.dto
 
-import com.fastcampus.fastcampusstudy.post.domain.PostEntity
+import com.fastcampus.fastcampusstudy.post.domain.Post
 import jakarta.validation.constraints.NotBlank
 
 data class PostCreateRequest(
@@ -14,7 +14,7 @@ data class PostCreateRequest(
     val createdBy: String
 )
 
-fun PostCreateRequest.toEntity() = PostEntity(
+fun PostCreateRequest.toEntity() = Post(
     title = this.title,
     content = this.content,
     createdBy = this.createdBy

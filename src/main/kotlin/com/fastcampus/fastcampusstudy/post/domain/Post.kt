@@ -10,7 +10,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class PostEntity(
+class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -23,16 +23,16 @@ class PostEntity(
 
     var updateBy: String? = null
 ) : BaseEntity() {
-    fun update(postEntity: PostEntity, postUpdateRequest: PostUpdateRequest) {
+    fun update(post: Post, postUpdateRequest: PostUpdateRequest) {
         if (postUpdateRequest.updatedBy != this.createdBy) {
             throw BadRequestException("author not match")
         }
-        postEntity.title = postUpdateRequest.title
-        postEntity.content = postUpdateRequest.content
-        postEntity.updateBy = postUpdateRequest.updatedBy
+        post.title = postUpdateRequest.title
+        post.content = postUpdateRequest.content
+        post.updateBy = postUpdateRequest.updatedBy
     }
 
-    fun fromEntity(entity: PostEntity): PostResponse = PostResponse(
+    fun fromEntity(entity: Post): PostResponse = PostResponse(
         title = entity.title,
         content = entity.content,
         createdBy = entity.createdBy
