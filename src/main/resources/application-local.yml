@@ -21,7 +21,7 @@ spring:
             client:
                 registration:
                     kakao:
-                        client-id: "2ea1bb92bda83e1b26d91f94ef017c6a"
+                        client-id: "22dbe7c6f0efc098e2f7fcd62476f4a2"
                         client-secret: "dTavFz1ET49fZG1VQo0vezOjQx9Tw8wi"
                         redirect-uri: "http://localhost:8080/auth/login/kakao"
                         scope: profile_nickname, account_email
@@ -41,4 +41,4 @@ jwt:
 
 
 
-#kauth.kakao.com/oauth/authorize?client_id=2ea1bb92bda83e1b26d91f94ef017c6a&redirect_uri=http://localhost:8080/auth/login/kakao&response_type=code
+#kauth.kakao.com/oauth/authorize?client_id=22dbe7c6f0efc098e2f7fcd62476f4a2&redirect_uri=http://localhost:8080/auth/login/kakao&response_type=code

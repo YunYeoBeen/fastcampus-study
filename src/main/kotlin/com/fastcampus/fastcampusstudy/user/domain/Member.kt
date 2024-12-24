@@ -26,7 +26,7 @@ class Member(
                 kakaoId = kakaoUserInfoDto.id,
                 email = kakaoUserInfoDto.kakaoAccount.email,
                 name = kakaoUserInfoDto.kakaoAccount.name,
-                type = Social.KAKAO
+                type = Social.kakao
             )
         }
     }
