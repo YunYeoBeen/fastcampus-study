@@ -16,16 +16,15 @@ class Member(
 
     var kakaoId: Long,
 
-    var email: String? = null,
-    var name: String? = null,
-    var type: Social
+    var nickName: String? = null,
+
+    var type: Social,
 ) : BaseEntity() {
     companion object {
         fun toEntity(kakaoUserInfoDto: KakaoUserInfoDto): Member {
             return Member(
                 kakaoId = kakaoUserInfoDto.id,
-                email = kakaoUserInfoDto.kakaoAccount.email,
-                name = kakaoUserInfoDto.kakaoAccount.name,
+                nickName = kakaoUserInfoDto.kakaoAccount.profile.nickName,
                 type = Social.kakao
             )
         }

@@ -1,12 +1,20 @@
 package com.fastcampus.fastcampusstudy.user.dto
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class KakaoUserInfoDto(
-    val id: Long,
-    val kakaoAccount: KakaoAccount
+    @JsonProperty("id")val id: Long,
+    @JsonProperty("kakao_account") val kakaoAccount: KakaoAccount,
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class KakaoAccount(
-    val name: String,
-    val email: String,
-    val birthDay: String
+    @JsonProperty("profile")val profile: Profile,
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+class Profile(
+    @JsonProperty("nickname")val nickName: String,
 )

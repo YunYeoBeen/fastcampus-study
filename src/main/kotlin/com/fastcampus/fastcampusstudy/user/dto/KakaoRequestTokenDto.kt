@@ -5,5 +5,5 @@ data class KakaoRequestTokenDto(
     val clientId: String,
     val grantType: String,
     val redirectUri: String,
-    val code: String
+    val code: String,
 )

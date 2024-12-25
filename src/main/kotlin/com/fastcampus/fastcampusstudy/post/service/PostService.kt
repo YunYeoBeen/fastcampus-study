@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class PostService(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
 ) {
     // TODO interceptor에서 로그인 체크하고 오자.
 

@@ -8,7 +8,7 @@ data class PostUpdateResponse(
     val content: String,
     val createdBy: String,
     val updatedBy: String,
-    val modDtm: LocalDateTime
+    val modDtm: LocalDateTime,
 )
 
 fun PostUpdateResponse.fromPostEntity(post: Post) = PostUpdateResponse(

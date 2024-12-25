@@ -11,7 +11,7 @@ data class PostCreateRequest(
     val content: String,
 
     @NotBlank
-    val createdBy: String
+    val createdBy: String,
 )
 
 fun PostCreateRequest.toEntity() = Post(

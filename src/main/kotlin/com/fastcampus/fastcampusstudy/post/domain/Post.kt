@@ -21,7 +21,7 @@ class Post(
 
     val createdBy: String,
 
-    var updateBy: String? = null
+    var updateBy: String? = null,
 ) : BaseEntity() {
     fun update(post: Post, postUpdateRequest: PostUpdateRequest) {
         if (postUpdateRequest.updatedBy != this.createdBy) {

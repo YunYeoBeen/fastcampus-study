@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/posts")
 class PostController(
-    private val postService: PostService
+    private val postService: PostService,
 ) {
 
     @GetMapping("/{postId}")
@@ -30,7 +30,7 @@ class PostController(
     @PostMapping("/users")
     fun savePost(
         @Valid @RequestBody
-        postCreateRequest: PostCreateRequest
+        postCreateRequest: PostCreateRequest,
     ): ResponseEntity<PostResponse> {
         val post = postService.findPost(postService.savePosts(postCreateRequest)).let {
             it.fromEntity(it)
@@ -42,7 +42,7 @@ class PostController(
     fun updatePost(
         @Valid @RequestBody
         postUpdateRequest: PostUpdateRequest,
-        @PathVariable("postId") postId: Long
+        @PathVariable("postId") postId: Long,
     ): ResponseEntity<PostResponse> {
         val post = postService.findPost(postService.updatePost(postUpdateRequest, postId)).let {
             it.fromEntity(it)

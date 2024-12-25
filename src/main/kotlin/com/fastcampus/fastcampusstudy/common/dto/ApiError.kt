@@ -6,5 +6,5 @@ data class ApiError(
     val error: Boolean ? = false,
     val path: String,
     val message: String,
-    val status: HttpStatus
+    val status: HttpStatus,
 )
