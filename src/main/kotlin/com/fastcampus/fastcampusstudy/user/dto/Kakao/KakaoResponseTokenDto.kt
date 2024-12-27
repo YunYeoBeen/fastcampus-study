@@ -1,4 +1,4 @@
-package com.fastcampus.fastcampusstudy.user.dto
+package com.fastcampus.fastcampusstudy.user.dto.Kakao
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

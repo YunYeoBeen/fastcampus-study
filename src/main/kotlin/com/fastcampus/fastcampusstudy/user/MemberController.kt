@@ -1,7 +1,7 @@
 package com.fastcampus.fastcampusstudy.user
 
-import com.fastcampus.fastcampusstudy.user.dto.KakaoAuthCodeDto
-import com.fastcampus.fastcampusstudy.user.dto.LoginSuccessDto
+import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoAuthCodeDto
+import com.fastcampus.fastcampusstudy.user.dto.Kakao.LoginSuccessDto
 import com.fastcampus.fastcampusstudy.user.service.MemberService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,13 +17,12 @@ class MemberController(
 ) {
     @PostMapping("login/{type}")
     fun loginBySocial(
-        @PathVariable("type") type: String,
-        @RequestBody code: KakaoAuthCodeDto,
+            @PathVariable("type") type: String,
+            @RequestBody code: KakaoAuthCodeDto,
     ): ResponseEntity<LoginSuccessDto> {
-        val tokenDto = memberService.getAccessToken(code.code)
-        val user = memberService.getUserInfo(tokenDto.accessToken)
+        val user = memberService.saveUser(code.code)
         return ResponseEntity.ok().body(
-            LoginSuccessDto(message = "로그인 성공", nickName = user.kakaoAccount.profile.nickName)
+            LoginSuccessDto(nickName = user.nickName, email = user.email)
         )
     }
 }

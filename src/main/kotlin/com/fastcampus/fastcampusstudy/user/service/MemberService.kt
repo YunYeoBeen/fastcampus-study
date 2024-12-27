@@ -1,8 +1,11 @@
 package com.fastcampus.fastcampusstudy.user.service
 
 import com.fastcampus.fastcampusstudy.common.exception.KakaoException
-import com.fastcampus.fastcampusstudy.user.dto.KakaoResponseTokenDto
-import com.fastcampus.fastcampusstudy.user.dto.KakaoUserInfoDto
+import com.fastcampus.fastcampusstudy.common.exception.ResourceNotFoundException
+import com.fastcampus.fastcampusstudy.user.domain.Member
+import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoResponseTokenDto
+import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoUserInfoDto
+import com.fastcampus.fastcampusstudy.user.dto.MemberResponseDto
 import com.fastcampus.fastcampusstudy.user.repository.MemberRepository
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -19,29 +22,40 @@ import org.springframework.web.client.RestTemplate
 @Service
 @Transactional(readOnly = true)
 class MemberService(
-    private val restTemplate: RestTemplate,
-    private val objectMapper: ObjectMapper,
-    private val memberRepository: MemberRepository,
+        private val restTemplate: RestTemplate,
+        private val objectMapper: ObjectMapper,
+        private val memberRepository: MemberRepository,
 ) {
     private val logger = KotlinLogging.logger {}
 
-    @Value("\${spring.security.oauth2.client.provider.kakao.token-uri}")
+    @Value("\${kakao.provider.token-uri}")
     lateinit var tokenUri: String
 
-    @Value("\${spring.security.oauth2.client.registration.kakao.client-id}")
+    @Value("\${kakao.registration.client-id}")
     lateinit var clientId: String
 
-    @Value("\${spring.security.oauth2.client.registration.kakao.client-secret}")
+    @Value("\${kakao.registration.client-secret}")
     lateinit var clientSecret: String
 
-    @Value("\${spring.security.oauth2.client.registration.kakao.authorization-grant-type}")
+    @Value("\${kakao.registration.authorization-grant-type}")
     lateinit var grantType: String
 
-    @Value("\${spring.security.oauth2.client.registration.kakao.redirect-uri}")
+    @Value("\${kakao.registration.redirect-uri}")
     lateinit var redirectUri: String
 
-    @Value("\${spring.security.oauth2.client.provider.kakao.user-info-uri}")
+    @Value("\${kakao.provider.user-info-uri}")
     lateinit var userInfoUri: String
+
+    @Transactional
+    fun saveUser(code: String): MemberResponseDto {
+        val kakaoAccessToken = getAccessToken(code)
+        val user = getUserInfo(kakaoAccessToken.accessToken)
+
+        return memberRepository.findByKakaoId(user.id)?.let {
+            MemberResponseDto.fromEntity(it)
+        } ?: MemberResponseDto.fromEntity(memberRepository.save(Member.toEntity(user)))
+    }
+
 
     fun getAccessToken(code: String): KakaoResponseTokenDto {
         val headers = HttpHeaders().apply {
@@ -57,10 +71,10 @@ class MemberService(
         }
 
         val response = restTemplate.exchange(
-            tokenUri,
-            HttpMethod.POST,
-            HttpEntity(body, headers),
-            String::class.java
+                tokenUri,
+                HttpMethod.POST,
+                HttpEntity(body, headers),
+                String::class.java
         )
 
         val tokenDto = objectMapper.readValue(response.body, KakaoResponseTokenDto::class.java)
@@ -75,10 +89,10 @@ class MemberService(
         }
 
         val response = restTemplate.exchange(
-            userInfoUri,
-            HttpMethod.GET,
-            HttpEntity(null, headers),
-            String::class.java
+                userInfoUri,
+                HttpMethod.GET,
+                HttpEntity(null, headers),
+                String::class.java
         )
 
         val responseDto = objectMapper.readValue(response.body, KakaoUserInfoDto::class.java)
