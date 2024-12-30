@@ -1,7 +1,9 @@
 package com.fastcampus.fastcampusstudy.user.service
 
+import com.fastcampus.fastcampusstudy.common.Enum.Jwt
 import com.fastcampus.fastcampusstudy.common.exception.KakaoException
 import com.fastcampus.fastcampusstudy.common.exception.ResourceNotFoundException
+import com.fastcampus.fastcampusstudy.common.jwt.JwtTokenProvider
 import com.fastcampus.fastcampusstudy.user.domain.Member
 import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoResponseTokenDto
 import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoUserInfoDto
@@ -25,6 +27,7 @@ class MemberService(
         private val restTemplate: RestTemplate,
         private val objectMapper: ObjectMapper,
         private val memberRepository: MemberRepository,
+        private val jwtTokenProvider: JwtTokenProvider
 ) {
     private val logger = KotlinLogging.logger {}
 
@@ -51,9 +54,12 @@ class MemberService(
         val kakaoAccessToken = getAccessToken(code)
         val user = getUserInfo(kakaoAccessToken.accessToken)
 
+        val jwtAccessToken = jwtTokenProvider.generateToken(user.kakaoAccount.email, Jwt.access)
+        val jwtRefreshToken = jwtTokenProvider.generateToken(user.kakaoAccount.email, Jwt.refresh)
+
         return memberRepository.findByKakaoId(user.id)?.let {
-            MemberResponseDto.fromEntity(it)
-        } ?: MemberResponseDto.fromEntity(memberRepository.save(Member.toEntity(user)))
+            MemberResponseDto.fromEntity(it, jwtAccessToken, jwtRefreshToken)
+        } ?: MemberResponseDto.fromEntity(memberRepository.save(Member.toEntity(user)), jwtAccessToken, jwtRefreshToken)
     }
 
 

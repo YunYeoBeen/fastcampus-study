@@ -22,7 +22,9 @@ class MemberController(
     ): ResponseEntity<LoginSuccessDto> {
         val user = memberService.saveUser(code.code)
         return ResponseEntity.ok().body(
-            LoginSuccessDto(nickName = user.nickName, email = user.email)
+            LoginSuccessDto(nickName = user.nickName, email = user.email, accessToken = user.accessToken, refreshToken = user.refreshToken)
         )
     }
+
+
 }

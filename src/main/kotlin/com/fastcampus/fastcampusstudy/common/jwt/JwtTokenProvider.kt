@@ -1,5 +1,6 @@
 package com.fastcampus.fastcampusstudy.common.jwt
 
+import com.fastcampus.fastcampusstudy.common.Enum.Jwt
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
@@ -12,18 +13,27 @@ class JwtTokenProvider {
     @Value("\${jwt.secret-key}")
     lateinit var secretKey : String
 
-    @Value("\${jwt.expiration-time}")
-    var expirationTime : Long = 0
+    @Value("\${jwt.access-token-expiration}")
+    var accessExpirationTime : Long = 0
+
+    @Value("\${jwt.refresh-token-expiration}")
+    var refresExpirationTime : Long = 0
+
 
     private val key by lazy { Keys.hmacShaKeyFor(this.secretKey.toByteArray()) }
 
     // JWT 생성 메서드
-    fun generateToken(userId: String): String {
+    fun generateToken(email: String, type : Jwt): String {
         val now = Date()
-        val expiryDate = Date(now.time + expirationTime)
-
+        val expiryDate = Date().apply {
+            if(type == Jwt.access){
+                Date(now.time + accessExpirationTime)
+            } else {
+                Date(now.time + refresExpirationTime)
+            }
+        }
         return Jwts.builder()
-                .setSubject(userId) // 토큰에 사용자 ID 설정
+                .setSubject(email) // 토큰에 사용자 ID 설정
                 .setIssuedAt(now) // 토큰 발행 시간
                 .setExpiration(expiryDate) // 토큰 만료 시간
                 .signWith(key, SignatureAlgorithm.HS256) // 서명 알고리즘과 비밀키 설정
