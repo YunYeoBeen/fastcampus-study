@@ -2,8 +2,7 @@ package com.fastcampus.fastcampusstudy.user.service
 
 import com.fastcampus.fastcampusstudy.common.Enum.Jwt
 import com.fastcampus.fastcampusstudy.common.exception.KakaoException
-import com.fastcampus.fastcampusstudy.common.exception.ResourceNotFoundException
-import com.fastcampus.fastcampusstudy.common.jwt.JwtTokenProvider
+import com.fastcampus.fastcampusstudy.common.util.JwtTokenProvider
 import com.fastcampus.fastcampusstudy.user.domain.Member
 import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoResponseTokenDto
 import com.fastcampus.fastcampusstudy.user.dto.Kakao.KakaoUserInfoDto

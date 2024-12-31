@@ -1,4 +1,4 @@
-package com.fastcampus.fastcampusstudy.common.jwt
+package com.fastcampus.fastcampusstudy.common.util
 
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.GrantedAuthority

@@ -34,5 +34,6 @@ class AppConfig {
     fun redisTemplate() = RedisTemplate<String, Any>().apply {
         this.connectionFactory = redisConnectionFactory()
         this.keySerializer = StringRedisSerializer()
+        this.valueSerializer = StringRedisSerializer()
     }
 }

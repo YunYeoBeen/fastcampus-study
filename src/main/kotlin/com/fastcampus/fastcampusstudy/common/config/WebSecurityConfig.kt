@@ -1,6 +1,6 @@
 package com.fastcampus.fastcampusstudy.common.config
 
-import com.fastcampus.fastcampusstudy.common.jwt.JwtAuthenticationFilter
+import com.fastcampus.fastcampusstudy.common.util.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

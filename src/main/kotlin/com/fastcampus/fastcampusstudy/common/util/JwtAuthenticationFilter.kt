@@ -1,4 +1,4 @@
-package com.fastcampus.fastcampusstudy.common.jwt
+package com.fastcampus.fastcampusstudy.common.util
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
